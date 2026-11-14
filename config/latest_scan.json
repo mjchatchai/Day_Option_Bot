@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-14 13:55:07",
+  "timestamp": "2026-11-14 07:01:14",
   "total_scanned": 8,
   "actionable_count": 0,
   "near_setup_count": 2,
@@ -83,9 +83,9 @@
       "earnings": {
         "ticker": "AAPL",
         "is_blackout": false,
-        "earnings_date": "2027-01-29",
-        "days_until_earnings": 76,
-        "status_label": "SAFE (งบถัดไป: 2027-01-29 / อีก 76 วัน)"
+        "earnings_date": "2027-01-28",
+        "days_until_earnings": 75,
+        "status_label": "SAFE (งบถัดไป: 2027-01-28 / อีก 75 วัน)"
       }
     },
     {
@@ -98,10 +98,10 @@
       "current_trading_date": "2026-11-13",
       "spot_price": 754.25,
       "ema200": 753.35,
-      "vwap": 752.87,
+      "vwap": 752.18,
       "rvol": 6.83,
       "rvol_passed": true,
-      "morning_gap_pct": 0.38,
+      "morning_gap_pct": 0.23,
       "trend_direction": "UPTREND",
       "option_action": "BUY CALL",
       "trend_thai": "ขาขึ้น (ราคาสูงกว่า EMA 200 -> ดักซื้อ CALL เท่านั้น)",
@@ -181,7 +181,7 @@
       "current_trading_date": "2026-11-13",
       "spot_price": 167.98,
       "ema200": 168.83,
-      "vwap": 168.02,
+      "vwap": 167.84,
       "rvol": 4.16,
       "rvol_passed": true,
       "morning_gap_pct": 0.24,
@@ -249,9 +249,9 @@
       "earnings": {
         "ticker": "PLTR",
         "is_blackout": false,
-        "earnings_date": "2027-02-02",
-        "days_until_earnings": 80,
-        "status_label": "SAFE (งบถัดไป: 2027-02-02 / อีก 80 วัน)"
+        "earnings_date": "2027-02-01",
+        "days_until_earnings": 79,
+        "status_label": "SAFE (งบถัดไป: 2027-02-01 / อีก 79 วัน)"
       }
     },
     {
@@ -264,7 +264,7 @@
       "current_trading_date": "2026-11-13",
       "spot_price": 641.99,
       "ema200": 636.11,
-      "vwap": 635.34,
+      "vwap": 634.58,
       "rvol": 4.48,
       "rvol_passed": true,
       "morning_gap_pct": 0.58,
@@ -332,9 +332,9 @@
       "earnings": {
         "ticker": "META",
         "is_blackout": false,
-        "earnings_date": "2027-01-28",
-        "days_until_earnings": 75,
-        "status_label": "SAFE (งบถัดไป: 2027-01-28 / อีก 75 วัน)"
+        "earnings_date": "2027-01-27",
+        "days_until_earnings": 74,
+        "status_label": "SAFE (งบถัดไป: 2027-01-27 / อีก 74 วัน)"
       }
     },
     {
@@ -347,7 +347,7 @@
       "current_trading_date": "2026-11-13",
       "spot_price": 266.61,
       "ema200": 266.1,
-      "vwap": 266.25,
+      "vwap": 266.18,
       "rvol": 4.98,
       "rvol_passed": true,
       "morning_gap_pct": 0.78,
@@ -415,9 +415,9 @@
       "earnings": {
         "ticker": "AMZN",
         "is_blackout": false,
-        "earnings_date": "2026-10-30",
-        "days_until_earnings": -15,
-        "status_label": "SAFE (งบถัดไป: 2026-10-30 / อีก -15 วัน)"
+        "earnings_date": "2026-10-29",
+        "days_until_earnings": -16,
+        "status_label": "SAFE (งบถัดไป: 2026-10-29 / อีก -16 วัน)"
       }
     },
     {
@@ -430,10 +430,10 @@
       "current_trading_date": "2026-11-13",
       "spot_price": 679.9,
       "ema200": 679.67,
-      "vwap": 678.38,
+      "vwap": 675.71,
       "rvol": 6.35,
       "rvol_passed": true,
-      "morning_gap_pct": 0.05,
+      "morning_gap_pct": 0.04,
       "trend_direction": "UPTREND",
       "option_action": "BUY CALL",
       "trend_thai": "ขาขึ้น (ราคาสูงกว่า EMA 200 -> ดักซื้อ CALL เท่านั้น)",
@@ -513,7 +513,7 @@
       "current_trading_date": "2026-11-13",
       "spot_price": 534.09,
       "ema200": 536.86,
-      "vwap": 535.27,
+      "vwap": 533.02,
       "rvol": 5.15,
       "rvol_passed": true,
       "morning_gap_pct": 3.23,
@@ -581,9 +581,9 @@
       "earnings": {
         "ticker": "AMD",
         "is_blackout": false,
-        "earnings_date": "2027-02-03",
-        "days_until_earnings": 81,
-        "status_label": "SAFE (งบถัดไป: 2027-02-03 / อีก 81 วัน)"
+        "earnings_date": "2027-02-02",
+        "days_until_earnings": 80,
+        "status_label": "SAFE (งบถัดไป: 2027-02-02 / อีก 80 วัน)"
       }
     },
     {
@@ -591,33 +591,33 @@
       "is_etf": false,
       "status": "GAP_SKIP",
       "status_thai": "⚠️ เปิดกระโดด Gap 2.32% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)",
-      "score": 75,
+      "score": 65,
       "prev_trading_date": "2026-11-12",
       "current_trading_date": "2026-11-13",
       "spot_price": 162.82,
       "ema200": 162.36,
-      "vwap": 162.3,
-      "rvol": 3.35,
-      "rvol_passed": true,
+      "vwap": 161.39,
+      "rvol": 0.3,
+      "rvol_passed": false,
       "morning_gap_pct": 2.32,
       "trend_direction": "UPTREND",
       "option_action": "BUY CALL",
       "trend_thai": "ขาขึ้น (ราคาสูงกว่า EMA 200 -> ดักซื้อ CALL เท่านั้น)",
       "primary_fibo_level": "0.618",
       "active_fibo_level": "0.618",
-      "active_fibo_price": 157.16,
-      "distance_to_active_fibo_pct": 3.48,
+      "active_fibo_price": 156.11,
+      "distance_to_active_fibo_pct": 4.12,
       "fibo_levels": {
         "anchor_point_1_label": "Wick High ($167.14)",
-        "anchor_point_2_label": "Body Low ($150.99)",
-        "range_usd": 16.15,
+        "anchor_point_2_label": "Body Low ($149.29)",
+        "range_usd": 17.85,
         "0.000": 167.14,
-        "0.236": 163.33,
-        "0.382": 160.97,
-        "0.500": 159.06,
-        "0.618": 157.16,
-        "0.786": 154.45,
-        "1.000": 150.99
+        "0.236": 162.93,
+        "0.382": 160.32,
+        "0.500": 158.21,
+        "0.618": 156.11,
+        "0.786": 153.11,
+        "1.000": 149.29
       },
       "candle_reversal": {
         "touched": false,
@@ -627,13 +627,13 @@
       "trade_plan": {
         "entry_underlying": 162.82,
         "fibo_entry_level": "0.618",
-        "fibo_entry_price": 157.16,
-        "tp1_underlying": 159.06,
+        "fibo_entry_price": 156.11,
+        "tp1_underlying": 158.21,
         "tp1_label": "Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)",
-        "lock_sl_after_tp1": 158.01,
-        "tp2_underlying": 160.97,
+        "lock_sl_after_tp1": 157.06,
+        "tp2_underlying": 160.32,
         "tp2_label": "Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)",
-        "sl_underlying": 154.45,
+        "sl_underlying": 153.11,
         "sl_label": "Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)"
       },
       "option_quote": {
@@ -644,29 +644,29 @@
         "strike": 155.0,
         "spot_realtime": 162.82,
         "iv": 0.5439,
-        "realtime_theo_price": 3.76,
-        "est_bid": 3.68,
-        "est_ask": 3.84,
-        "max_limit_buy": 3.86,
-        "delta": 0.644,
-        "abs_delta": 0.644,
-        "gamma": 0.0589,
-        "theta_daily": -0.601,
-        "tp1_option_price": 5.08,
-        "tp1_gain_pct": 35.3,
-        "tp2_option_price": 6.59,
-        "tp2_gain_pct": 75.6,
-        "sl_option_price": 2.24,
-        "sl_loss_pct": -40.5,
+        "realtime_theo_price": 3.11,
+        "est_bid": 3.05,
+        "est_ask": 3.18,
+        "max_limit_buy": 3.2,
+        "delta": 0.581,
+        "abs_delta": 0.581,
+        "gamma": 0.0622,
+        "theta_daily": -0.624,
+        "tp1_option_price": 4.46,
+        "tp1_gain_pct": 43.4,
+        "tp2_option_price": 6.06,
+        "tp2_gain_pct": 94.7,
+        "sl_option_price": 1.66,
+        "sl_loss_pct": -46.8,
         "recommended_contracts": 1,
         "spread_pct": 4.2
       },
       "earnings": {
         "ticker": "NVDA",
         "is_blackout": false,
-        "earnings_date": "2026-11-18",
-        "days_until_earnings": 4,
-        "status_label": "SAFE (งบถัดไป: 2026-11-18 / อีก 4 วัน)"
+        "earnings_date": "2026-11-17",
+        "days_until_earnings": 3,
+        "status_label": "SAFE (งบถัดไป: 2026-11-17 / อีก 3 วัน)"
       }
     }
   ]
