@@ -16,7 +16,7 @@ from .backtester import BACKTEST_OUT_PATH, run_90d_backtest
 from .command_handler import poll_telegram_commands
 from .dashboard_builder import build_html_dashboard
 from .fibo_scanner import run_full_day_option_scan
-from .paper_trader import update_paper_portfolio
+from .paper_trader import flush_open_paper_positions_at_session_end, update_paper_portfolio
 from .telegram_notifier import build_scan_telegram_report, format_signal_card, send_telegram_message
 
 
@@ -71,7 +71,17 @@ def run_continuous_30s_loop(
 
     while True:
         if max_minutes > 0 and (time.time() - start_ts) >= (max_minutes * 60):
-            print(f"[Day Option] Reached max session duration ({max_minutes} mins). Exiting cleanly to save state.")
+            print(f"[Day Option] Reached 2-hour window limit ({max_minutes} mins). Closing any remaining open paper trades...")
+            flush_res = flush_open_paper_positions_at_session_end(config)
+            for closed in flush_res.get("flushed", []):
+                outcome_emoji = "✅ WIN" if closed.get("is_win") else "🛑 LOSS"
+                msg = (
+                    f"{outcome_emoji} <b>[ปิดจบ 2 ชม. แรก] {closed['ticker']} ({closed['option_action']})</b>\n"
+                    f"• <b>ราคา Option:</b> เข้า <code>${closed['entry_option_price']:.2f}</code> → ออก <code>${closed['exit_option_price']:.2f}</code>\n"
+                    f"• <b>กำไร/ขาดทุนสุทธิ:</b> <code>${closed['net_pnl_usd']:+,.2f}</code>\n"
+                    f"• <b>Paper Win Rate:</b> <code>{flush_res['kpis']['win_rate_pct']:.1f}%</code>"
+                )
+                send_telegram_message(msg)
             break
 
         try:

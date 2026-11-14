@@ -289,3 +289,48 @@ def update_paper_portfolio(scan_output: Dict, config: Dict, path: str = PAPER_ST
         "newly_opened": newly_opened,
         "newly_closed": newly_closed,
     }
+
+
+def flush_open_paper_positions_at_session_end(config: Dict, path: str = PAPER_STATE_PATH) -> Dict:
+    """
+    Force-closes any remaining open paper positions at the end of the 2-hour trading window (11:30 NY)
+    at their current live mark price so Paper Trading operates strictly within the first 2 hours.
+    """
+    state = load_paper_state(path)
+    open_list = state.get("open_positions", [])
+    if not open_list:
+        return {"flushed": [], "kpis": compute_paper_kpis(state.get("closed_positions", []), [])}
+
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    paper_cfg = config.get("paper_trading", {})
+    starting_bal = float(paper_cfg.get("starting_balance_usd", 5000.0))
+    etf_friction = float(paper_cfg.get("etf_friction_per_contract_usd", 3.0))
+    stock_friction = float(paper_cfg.get("stock_friction_per_contract_usd", 5.0))
+
+    flushed = []
+    for pos in open_list:
+        contracts = int(pos.get("contracts", 1))
+        friction = etf_friction if pos.get("is_etf") else stock_friction
+        entry_opt = float(pos["entry_option_price"])
+        exit_opt = float(pos.get("current_option_price", entry_opt))
+        exit_u = float(pos.get("current_underlying", pos["entry_underlying"]))
+
+        gross_pnl = (exit_opt - entry_opt) * 100.0 * contracts
+        net_pnl = round(gross_pnl - (friction * contracts), 2)
+
+        pos["exit_underlying"] = round(exit_u, 2)
+        pos["exit_option_price"] = round(exit_opt, 2)
+        pos["exit_reason"] = "2H_WINDOW_CLOSE"
+        pos["closed_at"] = now_str
+        pos["gross_pnl_usd"] = round(gross_pnl, 2)
+        pos["net_pnl_usd"] = net_pnl
+        pos["is_win"] = net_pnl > 0
+        state["closed_positions"].append(pos)
+        flushed.append(pos)
+
+    state["open_positions"] = []
+    state["last_updated"] = now_str
+    save_paper_state(state, path)
+    kpis = compute_paper_kpis(state["closed_positions"], [], starting_bal)
+    return {"flushed": flushed, "kpis": kpis}
+
