@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Execute Day Option Bot (First 2 Hours Window: 09:35 - 11:30 NY)
+      - name: "Execute Day Option Bot (First 2 Hours Window 09:35 - 11:30 NY)"
         env:
           DAY_OPTION_TELEGRAM_BOT_TOKEN: ${{ secrets.DAY_OPTION_TELEGRAM_BOT_TOKEN }}
           DAY_OPTION_TELEGRAM_CHAT_ID: ${{ secrets.DAY_OPTION_TELEGRAM_CHAT_ID }}
