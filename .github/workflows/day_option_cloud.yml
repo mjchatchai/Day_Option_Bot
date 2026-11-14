@@ -1,23 +1,21 @@
-name: Day Option Bot Cloud Runner (Real-Time 30s & Telegram)
+name: Day Option Bot Cloud Runner (First 2 Hours Prime Window)
 
 on:
   schedule:
-    # US Market Open Session 1 (Summer 09:35 EDT = 13:35 UTC / Winter 09:35 EST = 14:35 UTC)
+    # US Market Open First 2 Hours Only (09:35 - 11:30 NY):
+    # Summer 09:35 EDT = 13:35 UTC (20:35 TH) / Winter 09:35 EST = 14:35 UTC (21:35 TH)
     - cron: '35 13 * * 1-5'
     - cron: '35 14 * * 1-5'
-    # US Market Afternoon Session 2 (Summer 12:50 EDT = 16:50 UTC / Winter 12:50 EST = 17:50 UTC)
-    - cron: '50 16 * * 1-5'
-    - cron: '50 17 * * 1-5'
   workflow_dispatch:
     inputs:
       mode:
-        description: 'Execution Mode (scan_once, live_session_3h, or backtest_90d)'
+        description: 'Execution Mode (scan_once, live_session_2h, or backtest_90d)'
         required: false
         default: 'scan_once'
         type: choice
         options:
           - scan_once
-          - live_session_3h
+          - live_session_2h
           - backtest_90d
 
 permissions:
@@ -30,7 +28,7 @@ concurrency:
 jobs:
   run-day-option-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 210
+    timeout-minutes: 135
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Execute Day Option Bot
+      - name: Execute Day Option Bot (First 2 Hours Window: 09:35 - 11:30 NY)
         env:
           DAY_OPTION_TELEGRAM_BOT_TOKEN: ${{ secrets.DAY_OPTION_TELEGRAM_BOT_TOKEN }}
           DAY_OPTION_TELEGRAM_CHAT_ID: ${{ secrets.DAY_OPTION_TELEGRAM_CHAT_ID }}
@@ -51,19 +49,19 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             if [ "${{ inputs.mode }}" = "backtest_90d" ]; then
               python -m src.main --backtest --once
-            elif [ "${{ inputs.mode }}" = "live_session_3h" ]; then
-              python -m src.main --loop --interval 30 --max-minutes 180 --send-opening-report
+            elif [ "${{ inputs.mode }}" = "live_session_2h" ]; then
+              python -m src.main --loop --interval 30 --max-minutes 115 --send-opening-report
             else
               python -m src.main --once
             fi
           else
-            # Scheduled Market Session: Check if NY market is currently open (09:30 - 16:00 America/New_York)
+            # Verify NY time is in the opening window (09:30 - 10:15 America/New_York)
             NY_HM=$(TZ="America/New_York" date +%H%M)
             echo "Current New York Time (HHMM): $NY_HM"
-            if [ "$NY_HM" -ge 930 ] && [ "$NY_HM" -le 1550 ]; then
-              python -m src.main --loop --interval 30 --max-minutes 185 --send-opening-report
+            if [ "$NY_HM" -ge 930 ] && [ "$NY_HM" -le 1015 ]; then
+              python -m src.main --loop --interval 30 --max-minutes 115 --send-opening-report
             else
-              echo "Outside active NY market session window ($NY_HM). Skipping duplicate DST trigger."
+              echo "Outside 09:35 NY opening trigger window ($NY_HM). Skipping duplicate DST trigger."
             fi
           fi
 
