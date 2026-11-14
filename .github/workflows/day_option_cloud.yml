@@ -1,0 +1,81 @@
+name: Day Option Bot Cloud Runner (Real-Time 30s & Telegram)
+
+on:
+  schedule:
+    # US Market Open Session 1 (Summer 09:35 EDT = 13:35 UTC / Winter 09:35 EST = 14:35 UTC)
+    - cron: '35 13 * * 1-5'
+    - cron: '35 14 * * 1-5'
+    # US Market Afternoon Session 2 (Summer 12:50 EDT = 16:50 UTC / Winter 12:50 EST = 17:50 UTC)
+    - cron: '50 16 * * 1-5'
+    - cron: '50 17 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Execution Mode (scan_once, live_session_3h, or backtest_90d)'
+        required: false
+        default: 'scan_once'
+        type: choice
+        options:
+          - scan_once
+          - live_session_3h
+          - backtest_90d
+
+permissions:
+  contents: write
+
+concurrency:
+  group: day-option-cloud-runner
+  cancel-in-progress: false
+
+jobs:
+  run-day-option-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 210
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Execute Day Option Bot
+        env:
+          DAY_OPTION_TELEGRAM_BOT_TOKEN: ${{ secrets.DAY_OPTION_TELEGRAM_BOT_TOKEN }}
+          DAY_OPTION_TELEGRAM_CHAT_ID: ${{ secrets.DAY_OPTION_TELEGRAM_CHAT_ID }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "${{ inputs.mode }}" = "backtest_90d" ]; then
+              python -m src.main --backtest --once
+            elif [ "${{ inputs.mode }}" = "live_session_3h" ]; then
+              python -m src.main --loop --interval 30 --max-minutes 180 --send-opening-report
+            else
+              python -m src.main --once
+            fi
+          else
+            # Scheduled Market Session: Check if NY market is currently open (09:30 - 16:00 America/New_York)
+            NY_HM=$(TZ="America/New_York" date +%H%M)
+            echo "Current New York Time (HHMM): $NY_HM"
+            if [ "$NY_HM" -ge 930 ] && [ "$NY_HM" -le 1550 ]; then
+              python -m src.main --loop --interval 30 --max-minutes 185 --send-opening-report
+            else
+              echo "Outside active NY market session window ($NY_HM). Skipping duplicate DST trigger."
+            fi
+          fi
+
+      - name: Commit & Push Updated Paper Trades and Dashboard
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add config/ docs/
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-update Day Option Scan, Paper Trades & Dashboard"
+            for i in 1 2 3 4 5; do
+              echo "Push attempt $i..."
+              git pull --rebase origin main && git push && break || sleep 5
+            done
+          fi
