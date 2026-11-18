@@ -30,9 +30,11 @@ def load_config(path: str = CONFIG_PATH) -> Dict:
         return json.load(f)
 
 
-def execute_single_cycle(config: Dict, notify_telegram: bool = True) -> Dict:
+def execute_single_cycle(config: Dict, notify_telegram: bool = True, ny_session_date: str = "") -> Dict:
     print("[Day Option] Running real-time EMA 200 (TF 2m) + Previous-Day Fibonacci (0.500 / 0.618) scan...")
     scan_out = run_full_day_option_scan(config)
+    if ny_session_date:
+        scan_out["ny_session_date"] = ny_session_date
 
     os.makedirs(os.path.dirname(LATEST_SCAN_PATH), exist_ok=True)
     with open(LATEST_SCAN_PATH, "w", encoding="utf-8") as f:
@@ -60,6 +62,7 @@ def run_continuous_30s_loop(
     interval_sec: int = 30,
     max_minutes: int = 0,
     send_opening_report: bool = False,
+    ny_session_date: str = "",
 ) -> None:
     print(
         f"[Day Option] Starting 30-second real-time loop "
@@ -87,6 +90,8 @@ def run_continuous_30s_loop(
         try:
             poll_telegram_commands(config)
             scan_out = run_full_day_option_scan(config)
+            if ny_session_date:
+                scan_out["ny_session_date"] = ny_session_date
             os.makedirs(os.path.dirname(LATEST_SCAN_PATH), exist_ok=True)
             with open(LATEST_SCAN_PATH, "w", encoding="utf-8") as f:
                 json.dump(scan_out, f, ensure_ascii=False, indent=2)
@@ -145,6 +150,7 @@ def main() -> None:
     parser.add_argument("--interval", type=int, default=30, help="Loop interval in seconds (default: 30)")
     parser.add_argument("--max-minutes", type=int, default=0, help="Max session duration in minutes for Cloud/GitHub runner")
     parser.add_argument("--send-opening-report", action="store_true", help="Send full scan report on first loop cycle")
+    parser.add_argument("--mark-session-date", type=str, default="", help="NY trading session date stamp (YYYY-MM-DD)")
     parser.add_argument("--backtest", action="store_true", help="Run 90-day intraday backtest across watchlist")
     parser.add_argument("--no-telegram", action="store_true", help="Skip sending Telegram message on --once")
     args = parser.parse_args()
@@ -166,9 +172,14 @@ def main() -> None:
             interval_sec=args.interval,
             max_minutes=args.max_minutes,
             send_opening_report=args.send_opening_report,
+            ny_session_date=args.mark_session_date,
         )
     else:
-        execute_single_cycle(config, notify_telegram=not args.no_telegram)
+        execute_single_cycle(
+            config,
+            notify_telegram=not args.no_telegram,
+            ny_session_date=args.mark_session_date,
+        )
 
 
 if __name__ == "__main__":

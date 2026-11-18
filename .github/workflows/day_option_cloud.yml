@@ -2,9 +2,12 @@ name: Day Option Bot Cloud Runner (First 2 Hours Prime Window)
 
 on:
   schedule:
-    # US Market Open First 2 Hours Only (09:35 - 11:30 NY):
-    # Summer 09:35 EDT = 13:35 UTC (20:35 TH) / Winter 09:35 EST = 14:35 UTC (21:35 TH)
+    # Pre-warm & Multi-anchor triggers for US Market Open (09:35 - 11:30 NY)
+    # Summer EDT (13:15, 13:35 UTC) & Winter EST (14:00, 14:20, 14:35 UTC)
+    - cron: '15 13 * * 1-5'
     - cron: '35 13 * * 1-5'
+    - cron: '0 14 * * 1-5'
+    - cron: '20 14 * * 1-5'
     - cron: '35 14 * * 1-5'
   workflow_dispatch:
     inputs:
@@ -28,7 +31,7 @@ concurrency:
 jobs:
   run-day-option-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 135
+    timeout-minutes: 160
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -55,13 +58,42 @@ jobs:
               python -m src.main --once
             fi
           else
-            # Verify NY time is in the opening window (09:30 - 10:15 America/New_York)
-            NY_HM=$(TZ="America/New_York" date +%H%M)
-            echo "Current New York Time (HHMM): $NY_HM"
-            if [ "$NY_HM" -ge 930 ] && [ "$NY_HM" -le 1015 ]; then
-              python -m src.main --loop --interval 30 --max-minutes 115 --send-opening-report
+            NY_DATE=$(TZ="America/New_York" date +%Y-%m-%d)
+            NY_H=$(TZ="America/New_York" date +%-H)
+            NY_M=$(TZ="America/New_York" date +%-M)
+            NY_MINS=$((NY_H * 60 + NY_M))
+            echo "Current New York Date: $NY_DATE | Time: $(TZ='America/New_York' date +%H:%M) ($NY_MINS mins)"
+
+            # Check if we already ran today's session by inspecting config/latest_scan.json
+            LAST_RUN_DATE=""
+            if [ -f "config/latest_scan.json" ]; then
+              LAST_RUN_DATE=$(python -c "import json; d=json.load(open('config/latest_scan.json')); print(str(d.get('ny_session_date','')))" 2>/dev/null || echo "")
+            fi
+
+            if [ "$LAST_RUN_DATE" = "$NY_DATE" ] && [ "$NY_MINS" -gt 690 ]; then
+              echo "Today's 2-hour session ($NY_DATE) already completed. Skipping duplicate cron."
+              exit 0
+            fi
+
+            # Market Open is 09:35 NY (575 mins), 2-Hour Window End is 11:30 NY (690 mins)
+            if [ "$NY_MINS" -ge 510 ] && [ "$NY_MINS" -lt 575 ]; then
+              WAIT_SEC=$(( (575 - NY_MINS) * 60 ))
+              echo "Pre-warmed runner arrived early. Waiting $WAIT_SEC seconds until exact 09:35 NY..."
+              sleep $WAIT_SEC
+              python -m src.main --loop --interval 30 --max-minutes 115 --send-opening-report --mark-session-date "$NY_DATE"
+            elif [ "$NY_MINS" -ge 575 ] && [ "$NY_MINS" -lt 690 ]; then
+              REM_MINS=$(( 690 - NY_MINS ))
+              if [ "$REM_MINS" -lt 15 ]; then REM_MINS=15; fi
+              echo "In active 2-hour market window. Running live loop for $REM_MINS minutes..."
+              python -m src.main --loop --interval 30 --max-minutes $REM_MINS --send-opening-report --mark-session-date "$NY_DATE"
             else
-              echo "Outside 09:35 NY opening trigger window ($NY_HM). Skipping duplicate DST trigger."
+              # GitHub cron arrived late after 11:30 NY -> still run a full scan & notify if today wasn't scanned yet!
+              if [ "$LAST_RUN_DATE" != "$NY_DATE" ]; then
+                echo "GitHub cron arrived late ($NY_H:$NY_M NY), executing daily scan & notification now..."
+                python -m src.main --once --mark-session-date "$NY_DATE"
+              else
+                echo "Already scanned today ($NY_DATE). Exiting."
+              fi
             fi
           fi
 
