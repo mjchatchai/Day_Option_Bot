@@ -6,9 +6,10 @@ Generates `docs/index.html` with:
 - Paper Trade Win Rate Scoreboard & 90-Day Backtest Leaderboard
 """
 
+import html as html_lib
 import json
 import os
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -16,7 +17,13 @@ DASHBOARD_PATH = os.path.join(BASE_DIR, "docs", "index.html")
 BACKTEST_PATH = os.path.join(BASE_DIR, "config", "backtest_90d.json")
 
 
-def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str = DASHBOARD_PATH) -> str:
+def _esc(val: object) -> str:
+    return html_lib.escape(str(val if val is not None else ""), quote=True)
+
+
+def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: Optional[str] = None) -> str:
+    if out_path is None:
+        out_path = DASHBOARD_PATH
     kpis = paper_summary.get("kpis", {})
     results: List[Dict] = scan_output.get("results", [])
 
@@ -30,12 +37,14 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
 
     cards_html = []
     for item in results:
-        if "fibo_levels" not in item:
+        if "fibo_levels" not in item or not item.get("trade_plan") or not item.get("option_quote"):
             continue
-        tk = item["ticker"]
-        st = item["status"]
-        act = item["option_action"]
-        is_put = "PUT" in act
+        tk = _esc(item["ticker"])
+        st = str(item.get("status", "UNKNOWN"))
+        st_esc = _esc(st)
+        raw_act = str(item.get("option_action", ""))
+        act = _esc(raw_act)
+        is_put = "PUT" in raw_act
         dir_badge_cls = "badge-put" if is_put else "badge-call"
         st_badge_cls = (
             "badge-actionable"
@@ -46,7 +55,8 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
         fibo = item["fibo_levels"]
         plan = item["trade_plan"]
         oq = item["option_quote"]
-        candle = item["candle_reversal"]
+        candle = item.get("candle_reversal", {})
+        earnings = item.get("earnings", {})
 
         cards_html.append(f"""
         <div class="card">
@@ -54,7 +64,7 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
             <div>
               <span class="ticker-title">{tk}</span>
               <span class="badge {dir_badge_cls}">{act}</span>
-              <span class="badge {st_badge_cls}">{st}</span>
+              <span class="badge {st_badge_cls}">{st_esc}</span>
             </div>
             <div class="price-box">
               <div class="spot-price">${item['spot_price']:.2f}</div>
@@ -62,10 +72,10 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
             </div>
           </div>
 
-          <div class="status-banner">{item['status_thai']}</div>
+          <div class="status-banner">{_esc(item.get('status_thai', ''))}</div>
 
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า ({item['prev_trading_date']})</div>
-          <div class="anchor-info">จุด 1: <b>{fibo['anchor_point_1_label']}</b> &rarr; จุด 2: <b>{fibo['anchor_point_2_label']}</b></div>
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า ({_esc(item.get('prev_trading_date', ''))})</div>
+          <div class="anchor-info">จุด 1: <b>{_esc(fibo.get('anchor_point_1_label', ''))}</b> &rarr; จุด 2: <b>{_esc(fibo.get('anchor_point_2_label', ''))}</b></div>
           <div class="fibo-grid">
             <div class="fibo-cell"><span>0.236</span><strong>${fibo['0.236']:.2f}</strong></div>
             <div class="fibo-cell"><span>0.382</span><strong>${fibo['0.382']:.2f}</strong></div>
@@ -76,19 +86,19 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
 
           <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
           <div class="option-box">
-            <div><b>Contract:</b> <code>{tk} {oq['expiration']} ${oq['strike']:.2f} {oq['option_type']}</code> ({oq['dte']} DTE | &Delta; {oq['delta']:+.2f})</div>
+            <div><b>Contract:</b> <code>{tk} {_esc(oq['expiration'])} ${oq['strike']:.2f} {_esc(oq['option_type'])}</code> ({oq['dte']} DTE | &Delta; {oq['delta']:+.2f})</div>
             <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~${oq['realtime_theo_price']:.2f}</span> (Bid ${oq['est_bid']:.2f} / Ask ${oq['est_ask']:.2f})</div>
             <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">${oq['max_limit_buy']:.2f}</span> ({oq['recommended_contracts']} สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> {candle['pattern_name']}</div>
+            <div><b>รูปแบบแท่งเทียน:</b> {_esc(candle.get('pattern_name', ''))}</div>
           </div>
 
           <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
           <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 ({plan['tp1_label']}):</b> หุ้นแตะ <b>${plan['tp1_underlying']:.2f}</b> &rarr; Option <b>~${oq['tp1_option_price']:.2f} ({oq['tp1_gain_pct']:+.1f}%)</b> [ขยับ SL บังทุนที่ ${plan['lock_sl_after_tp1']:.2f}]</div>
-            <div class="tp2-row">🚀 <b>TP 2 ({plan['tp2_label']}):</b> หุ้นแตะ <b>${plan['tp2_underlying']:.2f}</b> &rarr; Option <b>~${oq['tp2_option_price']:.2f} ({oq['tp2_gain_pct']:+.1f}%)</b></div>
-            <div class="sl-row">🛑 <b>SL ({plan['sl_label']}):</b> คัทถ้าหุ้นทะลุ <b>${plan['sl_underlying']:.2f}</b> &rarr; Option <b>~${oq['sl_option_price']:.2f} ({oq['sl_loss_pct']:+.1f}%)</b></div>
+            <div class="tp1-row">✅ <b>TP 1 ({_esc(plan['tp1_label'])}):</b> หุ้นแตะ <b>${plan['tp1_underlying']:.2f}</b> &rarr; Option <b>~${oq['tp1_option_price']:.2f} ({oq['tp1_gain_pct']:+.1f}%)</b> [ขยับ SL บังทุนที่ ${plan['lock_sl_after_tp1']:.2f}]</div>
+            <div class="tp2-row">🚀 <b>TP 2 ({_esc(plan['tp2_label'])}):</b> หุ้นแตะ <b>${plan['tp2_underlying']:.2f}</b> &rarr; Option <b>~${oq['tp2_option_price']:.2f} ({oq['tp2_gain_pct']:+.1f}%)</b></div>
+            <div class="sl-row">🛑 <b>SL ({_esc(plan['sl_label'])}):</b> คัทถ้าหุ้นทะลุ <b>${plan['sl_underlying']:.2f}</b> &rarr; Option <b>~${oq['sl_option_price']:.2f} ({oq['sl_loss_pct']:+.1f}%)</b></div>
           </div>
-          <div class="earn-footer">📅 สถานะงบการเงิน: {item['earnings']['status_label']}</div>
+          <div class="earn-footer">📅 สถานะงบการเงิน: {_esc(earnings.get('status_label', ''))}</div>
         </div>
         """)
 
@@ -98,7 +108,7 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
         u = info.get("upgraded", {})
         bt_rows.append(f"""
         <tr>
-          <td><b>{tk}</b></td>
+          <td><b>{_esc(tk)}</b></td>
           <td>{info.get('days_tested', 60)} วัน ({info.get('bars_tested', 8190):,} แท่ง)</td>
           <td><b>{g.get('win_rate_pct', 0.0):.1f}%</b> ({g.get('wins', 0)}W / {g.get('losses', 0)}L)</td>
           <td class="{'pos' if g.get('net_pnl', 0) >= 0 else 'neg'}">${g.get('net_pnl', 0.0):+,.2f}</td>
@@ -273,7 +283,7 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
         </div>
       </div>
       <div style="text-align:right;font-size:13px;color:var(--muted);">
-        อัปเดตล่าสุด: <b>{scan_output.get('timestamp')}</b>
+        อัปเดตล่าสุด: <b>{_esc(scan_output.get('timestamp', ''))}</b>
       </div>
     </div>
 
@@ -320,7 +330,7 @@ def build_html_dashboard(scan_output: Dict, paper_summary: Dict, out_path: str =
 </body>
 </html>
 """
-    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
     return out_path

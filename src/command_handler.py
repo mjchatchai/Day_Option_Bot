@@ -8,9 +8,10 @@ Supports commands in the Day Option Telegram room:
   /help      - List available commands
 """
 
+import html
 import json
 import os
-from typing import Dict
+from typing import Dict, Optional
 import requests
 
 from .fibo_scanner import analyze_single_ticker, run_full_day_option_scan
@@ -26,6 +27,40 @@ from .telegram_notifier import (
 
 OFFSET_FILE = os.path.join(BASE_DIR, "config", "telegram_offset.txt")
 BACKTEST_FILE = os.path.join(BASE_DIR, "config", "backtest_90d.json")
+_WEBHOOK_CACHE: Dict[str, bool] = {}
+
+
+def has_active_telegram_webhook(token: Optional[str] = None, force_refresh: bool = False) -> bool:
+    """Check Telegram getWebhookInfo safely (cached per process/token) to avoid getUpdates 409 conflicts."""
+    env_tk, _ = get_telegram_credentials()
+    tk = (token if token is not None else env_tk).strip()
+    if not tk or tk.lower().startswith("your_"):
+        return False
+
+    if not force_refresh and tk in _WEBHOOK_CACHE:
+        return _WEBHOOK_CACHE[tk]
+
+    url = f"https://api.telegram.org/bot{tk}/getWebhookInfo"
+    try:
+        resp = requests.get(url, timeout=6)
+        if resp.status_code != 200:
+            print(f"[Telegram] getWebhookInfo failed (HTTP {resp.status_code}): {getattr(resp, 'text', '')}")
+            _WEBHOOK_CACHE[tk] = False
+            return False
+        data = resp.json()
+        result = data.get("result") if isinstance(data, dict) else None
+        webhook_url = str(result.get("url") or "").strip() if isinstance(result, dict) else ""
+        active = bool(webhook_url)
+        _WEBHOOK_CACHE[tk] = active
+        return active
+    except Exception as e:
+        print(f"[Telegram] getWebhookInfo error: {e}")
+        return False
+
+
+def _send_or_warn(text: str, token: str, chat_id: str, context: str) -> None:
+    if not send_telegram_message(text, token, chat_id):
+        print(f"[Telegram] WARNING: Failed to send response for {context}.")
 
 
 def _load_offset() -> int:
@@ -66,8 +101,9 @@ def format_winrate_message(config: Dict) -> str:
     if per_tk:
         lines.append("\n📈 <b>สถิติแยกตามรายหุ้น:</b>")
         for tk, st in sorted(per_tk.items(), key=lambda x: -x[1]["net_pnl_usd"]):
+            esc_tk = html.escape(str(tk), quote=False)
             lines.append(
-                f"• <b>{tk}:</b> WR <code>{st['win_rate_pct']:.1f}%</code> "
+                f"• <b>{esc_tk}:</b> WR <code>{st['win_rate_pct']:.1f}%</code> "
                 f"({st['wins']}W/{st['losses']}L) | Net <code>${st['net_pnl_usd']:+,.2f}</code>"
             )
 
@@ -91,8 +127,9 @@ def format_backtest_summary_message() -> str:
     ]
     for tk, info in bt.get("per_ticker", {}).items():
         g = info.get("golden", {})
+        esc_tk = html.escape(str(tk), quote=False)
         lines.append(
-            f"• <b>{tk}:</b> WR <code>{g.get('win_rate_pct', 0):.1f}%</code> "
+            f"• <b>{esc_tk}:</b> WR <code>{g.get('win_rate_pct', 0):.1f}%</code> "
             f"({g.get('wins', 0)}W/{g.get('losses', 0)}L) | Net <code>${g.get('net_pnl', 0):+,.2f}</code>"
         )
     return "\n".join(lines)
@@ -100,7 +137,12 @@ def format_backtest_summary_message() -> str:
 
 def poll_telegram_commands(config: Dict) -> None:
     token, chat_id = get_telegram_credentials()
-    if not token or not chat_id or token.startswith("your_"):
+    if (
+        not token
+        or not chat_id
+        or token.lower().startswith("your_")
+        or chat_id.lower().startswith("your_")
+    ):
         return
 
     offset = _load_offset()
@@ -108,9 +150,11 @@ def poll_telegram_commands(config: Dict) -> None:
     try:
         resp = requests.get(url, params={"offset": offset + 1, "timeout": 2}, timeout=6)
         if resp.status_code != 200:
+            print(f"[Telegram] getUpdates failed (HTTP {resp.status_code}): {getattr(resp, 'text', '')}")
             return
         updates = resp.json().get("result", [])
-    except Exception:
+    except Exception as e:
+        print(f"[Telegram] getUpdates error: {e}")
         return
 
     for upd in updates:
@@ -128,18 +172,22 @@ def poll_telegram_commands(config: Dict) -> None:
         if cmd == "/scan":
             scan_out = run_full_day_option_scan(config)
             paper_out = update_paper_portfolio(scan_out, config)
-            send_telegram_message(build_scan_telegram_report(scan_out, paper_out), token, chat_id)
+            _send_or_warn(build_scan_telegram_report(scan_out, paper_out), token, chat_id, "/scan")
         elif cmd == "/fibo":
             tk = parts[1].upper() if len(parts) > 1 else "AMD"
+            esc_tk = html.escape(tk, quote=False)
             item = analyze_single_ticker(tk, config)
-            if item.get("status") == "NO_DATA":
-                send_telegram_message(f"⚠️ ไม่พบข้อมูลของ {tk}", token, chat_id)
+            st = item.get("status")
+            if st == "NO_DATA":
+                _send_or_warn(f"⚠️ ไม่พบข้อมูลของ {esc_tk}", token, chat_id, "/fibo")
+            elif st == "NEUTRAL" or not item.get("trade_plan") or not item.get("option_quote"):
+                _send_or_warn(format_signal_card(item), token, chat_id, "/fibo")
             else:
-                send_telegram_message(format_signal_card(item), token, chat_id)
+                _send_or_warn(format_signal_card(item), token, chat_id, "/fibo")
         elif cmd in ("/winrate", "/paper"):
-            send_telegram_message(format_winrate_message(config), token, chat_id)
+            _send_or_warn(format_winrate_message(config), token, chat_id, cmd)
         elif cmd == "/backtest":
-            send_telegram_message(format_backtest_summary_message(), token, chat_id)
+            _send_or_warn(format_backtest_summary_message(), token, chat_id, "/backtest")
         elif cmd == "/help":
             help_txt = (
                 "🤖 <b>คำสั่งบอท DAY OPTION:</b>\n"
@@ -148,4 +196,4 @@ def poll_telegram_commands(config: Dict) -> None:
                 "• <code>/winrate</code> — ดูสถิติอัตราชนะ (Paper Trade Win Rate)\n"
                 "• <code>/backtest</code> — ดูสรุปผล Backtest ย้อนหลัง 90 วัน"
             )
-            send_telegram_message(help_txt, token, chat_id)
+            _send_or_warn(help_txt, token, chat_id, "/help")

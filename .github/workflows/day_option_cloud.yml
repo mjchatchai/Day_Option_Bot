@@ -31,7 +31,7 @@ concurrency:
 jobs:
   run-day-option-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 160
+    timeout-minutes: 200
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -49,20 +49,21 @@ jobs:
           DAY_OPTION_TELEGRAM_BOT_TOKEN: ${{ secrets.DAY_OPTION_TELEGRAM_BOT_TOKEN }}
           DAY_OPTION_TELEGRAM_CHAT_ID: ${{ secrets.DAY_OPTION_TELEGRAM_CHAT_ID }}
         run: |
+          NY_DATE=$(TZ="America/New_York" date +%Y-%m-%d)
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             if [ "${{ inputs.mode }}" = "backtest_90d" ]; then
-              python -m src.main --backtest --once
+              python -m src.main --backtest --once --mark-session-date "$NY_DATE"
             elif [ "${{ inputs.mode }}" = "live_session_2h" ]; then
-              python -m src.main --loop --interval 30 --max-minutes 115 --send-opening-report
+              python -m src.main --loop --interval 30 --max-minutes 115 --send-opening-report --mark-session-date "$NY_DATE"
             else
-              python -m src.main --once
+              python -m src.main --once --mark-session-date "$NY_DATE"
             fi
           else
-            NY_DATE=$(TZ="America/New_York" date +%Y-%m-%d)
             NY_H=$(TZ="America/New_York" date +%-H)
             NY_M=$(TZ="America/New_York" date +%-M)
+            NY_S=$(TZ="America/New_York" date +%-S)
             NY_MINS=$((NY_H * 60 + NY_M))
-            echo "Current New York Date: $NY_DATE | Time: $(TZ='America/New_York' date +%H:%M) ($NY_MINS mins)"
+            echo "Current New York Date: $NY_DATE | Time: $(TZ='America/New_York' date +%H:%M:%S) ($NY_MINS mins)"
 
             # Check if we already ran today's session by inspecting config/latest_scan.json
             LAST_RUN_DATE=""
@@ -70,22 +71,28 @@ jobs:
               LAST_RUN_DATE=$(python -c "import json; d=json.load(open('config/latest_scan.json')); print(str(d.get('ny_session_date','')))" 2>/dev/null || echo "")
             fi
 
-            if [ "$LAST_RUN_DATE" = "$NY_DATE" ] && [ "$NY_MINS" -gt 690 ]; then
+            if [ "$LAST_RUN_DATE" = "$NY_DATE" ] && [ "$NY_MINS" -ge 690 ]; then
               echo "Today's 2-hour session ($NY_DATE) already completed. Skipping duplicate cron."
               exit 0
             fi
 
             # Market Open is 09:35 NY (575 mins), 2-Hour Window End is 11:30 NY (690 mins)
-            if [ "$NY_MINS" -ge 510 ] && [ "$NY_MINS" -lt 575 ]; then
-              WAIT_SEC=$(( (575 - NY_MINS) * 60 ))
+            if [ "$NY_MINS" -ge 490 ] && [ "$NY_MINS" -lt 575 ]; then
+              NOW_SEC=$((NY_H * 3600 + NY_M * 60 + NY_S))
+              WAIT_SEC=$(( 575 * 60 - NOW_SEC ))
               echo "Pre-warmed runner arrived early. Waiting $WAIT_SEC seconds until exact 09:35 NY..."
-              sleep $WAIT_SEC
+              if [ "$WAIT_SEC" -gt 0 ]; then
+                sleep "$WAIT_SEC"
+              fi
               python -m src.main --loop --interval 30 --max-minutes 115 --send-opening-report --mark-session-date "$NY_DATE"
             elif [ "$NY_MINS" -ge 575 ] && [ "$NY_MINS" -lt 690 ]; then
               REM_MINS=$(( 690 - NY_MINS ))
-              if [ "$REM_MINS" -lt 15 ]; then REM_MINS=15; fi
+              if [ "$REM_MINS" -lt 1 ]; then REM_MINS=1; fi
               echo "In active 2-hour market window. Running live loop for $REM_MINS minutes..."
-              python -m src.main --loop --interval 30 --max-minutes $REM_MINS --send-opening-report --mark-session-date "$NY_DATE"
+              python -m src.main --loop --interval 30 --max-minutes "$REM_MINS" --send-opening-report --mark-session-date "$NY_DATE"
+            elif [ "$NY_MINS" -lt 575 ]; then
+              echo "Before 09:35 NY open ($NY_H:$NY_M NY). Skipping pre-market scan."
+              exit 0
             else
               # GitHub cron arrived late after 11:30 NY -> still run a full scan & notify if today wasn't scanned yet!
               if [ "$LAST_RUN_DATE" != "$NY_DATE" ]; then
