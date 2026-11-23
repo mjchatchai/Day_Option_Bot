@@ -164,14 +164,14 @@
         </div>
       </div>
       <div style="text-align:right;font-size:13px;color:var(--muted);">
-        อัปเดตล่าสุด: <b>2026-11-20 11:30:06 ET</b>
+        อัปเดตล่าสุด: <b>2026-11-23 09:50:56 ET</b>
       </div>
     </div>
 
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-label">สัญญาณพร้อมเข้าเทรด (ACTIONABLE / NEAR)</div>
-        <div class="kpi-val" style="color:var(--gold);">0 / 0</div>
+        <div class="kpi-val" style="color:var(--gold);">0 / 1</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">อัตราชนะรวม (Paper Trade Win Rate)</div>
@@ -192,83 +192,167 @@
         <div class="card">
           <div class="card-header">
             <div>
-              <span class="ticker-title">AMZN</span>
-              <span class="badge badge-put">BUY PUT</span>
-              <span class="badge badge-watch">WATCHING</span>
+              <span class="ticker-title">AMD</span>
+              <span class="badge badge-call">BUY CALL</span>
+              <span class="badge badge-near">NEAR_SETUP</span>
             </div>
             <div class="price-box">
-              <div class="spot-price">$252.73</div>
-              <div class="sub-meta">EMA200: $258.74 | RVOL: 1.25x</div>
+              <div class="spot-price">$443.00</div>
+              <div class="sub-meta">EMA200: $442.78 | RVOL: 0.76x</div>
             </div>
           </div>
 
-          <div class="status-banner">⏳ รอราคาย่อ/เด้งมาหา Fibo 0.618 ($267.11 | ห่าง 5.69%)</div>
+          <div class="status-banner">👀 ราคาเข้าใกล้/กำลังทดสอบ Fibo 0.618 (ห่าง 0.45%) รอแท่งกลับตัว+Volume</div>
 
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($256.75)</b> &rarr; จุด 2: <b>Body High ($273.51)</b></div>
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($474.79)</b> &rarr; จุด 2: <b>Body Low ($420.10)</b></div>
           <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$260.71</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$263.15</strong></div>
-            <div class="fibo-cell "><span>0.500</span><strong>$265.13</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$267.11</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$269.92</strong></div>
+            <div class="fibo-cell"><span>0.236</span><strong>$461.88</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$453.90</strong></div>
+            <div class="fibo-cell "><span>0.500</span><strong>$447.45</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$440.99</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$431.80</strong></div>
           </div>
 
           <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
           <div class="option-box">
-            <div><b>Contract:</b> <code>AMZN 2026-11-23 $260.00 PUT</code> (3 DTE | &Delta; -0.80)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$8.13</span> (Bid $7.96 / Ask $8.31)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$8.33</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
+            <div><b>Contract:</b> <code>AMD 2026-11-25 $435.00 CALL</code> (2 DTE | &Delta; +0.58)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$28.13</span> (Bid $27.78 / Ask $28.49)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$28.51</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Testing Fibo Support (กำลังทดสอบแนวรับ รอแท่งเขียวยืนยัน)</div>
           </div>
 
           <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
           <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$265.13</b> &rarr; Option <b>~$1.48 (-81.8%)</b> [ขยับ SL บังทุนที่ $252.73]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$263.15</b> &rarr; Option <b>~$2.09 (-74.3%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$269.92</b> &rarr; Option <b>~$0.57 (-93.0%)</b></div>
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$447.45</b> &rarr; Option <b>~$30.78 (+9.4%)</b> [ขยับ SL บังทุนที่ $445.00]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$453.90</b> &rarr; Option <b>~$34.84 (+23.8%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$431.80</b> &rarr; Option <b>~$22.04 (-21.6%)</b></div>
           </div>
-          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบล่าสุด: 2026-10-29 / ผ่านมาแล้ว 22 วัน)</div>
+          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-02-02 / อีก 71 วัน)</div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="ticker-title">AAPL</span>
+              <span class="badge badge-call">BUY CALL</span>
+              <span class="badge badge-watch">WATCHING</span>
+            </div>
+            <div class="price-box">
+              <div class="spot-price">$349.30</div>
+              <div class="sub-meta">EMA200: $346.02 | RVOL: 0.39x</div>
+            </div>
+          </div>
+
+          <div class="status-banner">⏳ รอราคาย่อ/เด้งมาหา Fibo 0.618 ($346.02 | ห่าง 0.94%)</div>
+
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($354.30)</b> &rarr; จุด 2: <b>Body Low ($340.90)</b></div>
+          <div class="fibo-grid">
+            <div class="fibo-cell"><span>0.236</span><strong>$351.14</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$349.18</strong></div>
+            <div class="fibo-cell "><span>0.500</span><strong>$347.60</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$346.02</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$343.77</strong></div>
+          </div>
+
+          <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
+          <div class="option-box">
+            <div><b>Contract:</b> <code>AAPL 2026-11-25 $350.00 CALL</code> (2 DTE | &Delta; +0.47)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$2.64</span> (Bid $2.60 / Ask $2.68)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$2.70</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคาย่อตัวแตะเส้น)</div>
+          </div>
+
+          <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
+          <div class="tpsl-list">
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$347.60</b> &rarr; Option <b>~$1.92 (-27.4%)</b> [ขยับ SL บังทุนที่ $349.30]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$349.18</b> &rarr; Option <b>~$2.58 (-2.1%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$343.77</b> &rarr; Option <b>~$0.82 (-69.1%)</b></div>
+          </div>
+          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-01-28 / อีก 66 วัน)</div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="ticker-title">AMZN</span>
+              <span class="badge badge-call">BUY CALL</span>
+              <span class="badge badge-watch">WATCHING</span>
+            </div>
+            <div class="price-box">
+              <div class="spot-price">$254.35</div>
+              <div class="sub-meta">EMA200: $251.77 | RVOL: 5.95x</div>
+            </div>
+          </div>
+
+          <div class="status-banner">⏳ รอราคาย่อ/เด้งมาหา Fibo 0.500 ($252.81 | ห่าง 0.61%)</div>
+
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($259.97)</b> &rarr; จุด 2: <b>Body Low ($245.64)</b></div>
+          <div class="fibo-grid">
+            <div class="fibo-cell"><span>0.236</span><strong>$256.59</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$254.50</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.500</span><strong>$252.81</strong></div>
+            <div class="fibo-cell "><span>0.618 (Golden)</span><strong>$251.11</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$248.71</strong></div>
+          </div>
+
+          <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
+          <div class="option-box">
+            <div><b>Contract:</b> <code>AMZN 2026-11-25 $252.50 CALL</code> (2 DTE | &Delta; +0.58)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$5.49</span> (Bid $5.36 / Ask $5.61)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$5.63</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคาย่อตัวแตะเส้น)</div>
+          </div>
+
+          <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
+          <div class="tpsl-list">
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.382 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$254.50</b> &rarr; Option <b>~$5.57 (+1.6%)</b> [ขยับ SL บังทุนที่ $254.42]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.236 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$256.59</b> &rarr; Option <b>~$6.86 (+25.1%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.618 (จุดคัทลอสเมื่อหลุดโซน 0.500)):</b> คัทถ้าหุ้นทะลุ <b>$251.11</b> &rarr; Option <b>~$3.81 (-30.6%)</b></div>
+          </div>
+          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบล่าสุด: 2026-10-29 / ผ่านมาแล้ว 25 วัน)</div>
         </div>
         
         <div class="card">
           <div class="card-header">
             <div>
               <span class="ticker-title">SPY</span>
-              <span class="badge badge-put">BUY PUT</span>
-              <span class="badge badge-watch">WATCHING</span>
+              <span class="badge badge-call">BUY CALL</span>
+              <span class="badge badge-watch">GAP_SKIP</span>
             </div>
             <div class="price-box">
-              <div class="spot-price">$705.45</div>
-              <div class="sub-meta">EMA200: $716.89 | RVOL: 0.16x</div>
+              <div class="spot-price">$719.37</div>
+              <div class="sub-meta">EMA200: $703.76 | RVOL: 0.31x</div>
             </div>
           </div>
 
-          <div class="status-banner">⏳ รอราคาย่อ/เด้งมาหา Fibo 0.500 ($727.58 | ห่าง 3.14%)</div>
+          <div class="status-banner">⚠️ เปิดกระโดด Gap 4.84% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
 
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($715.65)</b> &rarr; จุด 2: <b>Body High ($739.50)</b></div>
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($718.29)</b> &rarr; จุด 2: <b>Body Low ($687.24)</b></div>
           <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$721.28</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$724.76</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.500</span><strong>$727.58</strong></div>
-            <div class="fibo-cell "><span>0.618 (Golden)</span><strong>$730.39</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$734.40</strong></div>
+            <div class="fibo-cell"><span>0.236</span><strong>$710.96</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$706.43</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.500</span><strong>$702.76</strong></div>
+            <div class="fibo-cell "><span>0.618 (Golden)</span><strong>$699.10</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$693.88</strong></div>
           </div>
 
           <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
           <div class="option-box">
-            <div><b>Contract:</b> <code>SPY 2026-11-23 $708.00 PUT</code> (3 DTE | &Delta; -0.58)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$5.63</span> (Bid $5.61 / Ask $5.65)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$5.67</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
+            <div><b>Contract:</b> <code>SPY 2026-11-24 $717.00 CALL</code> (1 DTE | &Delta; +0.58)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$6.18</span> (Bid $6.15 / Ask $6.20)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$6.22</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคาย่อตัวแตะเส้น)</div>
           </div>
 
           <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
           <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.382 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$724.76</b> &rarr; Option <b>~$0.31 (-94.5%)</b> [ขยับ SL บังทุนที่ $705.45]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.236 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$721.28</b> &rarr; Option <b>~$0.60 (-89.3%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.618 (จุดคัทลอสเมื่อหลุดโซน 0.500)):</b> คัทถ้าหุ้นทะลุ <b>$730.39</b> &rarr; Option <b>~$0.09 (-98.4%)</b></div>
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.382 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$706.43</b> &rarr; Option <b>~$1.28 (-79.3%)</b> [ขยับ SL บังทุนที่ $719.37]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.236 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$710.96</b> &rarr; Option <b>~$2.42 (-60.8%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.618 (จุดคัทลอสเมื่อหลุดโซน 0.500)):</b> คัทถ้าหุ้นทะลุ <b>$699.10</b> &rarr; Option <b>~$0.36 (-94.1%)</b></div>
           </div>
           <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (ETF Index)</div>
         </div>
@@ -277,40 +361,40 @@
           <div class="card-header">
             <div>
               <span class="ticker-title">QQQ</span>
-              <span class="badge badge-put">BUY PUT</span>
-              <span class="badge badge-watch">WATCHING</span>
+              <span class="badge badge-call">BUY CALL</span>
+              <span class="badge badge-watch">GAP_SKIP</span>
             </div>
             <div class="price-box">
-              <div class="spot-price">$625.59</div>
-              <div class="sub-meta">EMA200: $643.01 | RVOL: 0.03x</div>
+              <div class="spot-price">$646.89</div>
+              <div class="sub-meta">EMA200: $626.07 | RVOL: 0.26x</div>
             </div>
           </div>
 
-          <div class="status-banner">⏳ รอราคาย่อ/เด้งมาหา Fibo 0.500 ($651.40 | ห่าง 4.13%)</div>
+          <div class="status-banner">⚠️ เปิดกระโดด Gap 7.53% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
 
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($644.34)</b> &rarr; จุด 2: <b>Body High ($658.46)</b></div>
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($643.28)</b> &rarr; จุด 2: <b>Body Low ($606.86)</b></div>
           <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$647.67</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$649.73</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.500</span><strong>$651.40</strong></div>
-            <div class="fibo-cell "><span>0.618 (Golden)</span><strong>$653.07</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$655.44</strong></div>
+            <div class="fibo-cell"><span>0.236</span><strong>$634.68</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$629.37</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.500</span><strong>$625.07</strong></div>
+            <div class="fibo-cell "><span>0.618 (Golden)</span><strong>$620.77</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$614.65</strong></div>
           </div>
 
           <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
           <div class="option-box">
-            <div><b>Contract:</b> <code>QQQ 2026-11-23 $629.00 PUT</code> (3 DTE | &Delta; -0.59)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$6.99</span> (Bid $6.95 / Ask $7.02)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$7.04</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
+            <div><b>Contract:</b> <code>QQQ 2026-11-24 $647.00 CALL</code> (1 DTE | &Delta; +0.50)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$6.81</span> (Bid $6.67 / Ask $6.95)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$6.97</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคาย่อตัวแตะเส้น)</div>
           </div>
 
           <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
           <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.382 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$649.73</b> &rarr; Option <b>~$0.34 (-95.2%)</b> [ขยับ SL บังทุนที่ $625.59]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.236 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$647.67</b> &rarr; Option <b>~$0.47 (-93.2%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.618 (จุดคัทลอสเมื่อหลุดโซน 0.500)):</b> คัทถ้าหุ้นทะลุ <b>$653.07</b> &rarr; Option <b>~$0.19 (-97.3%)</b></div>
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.382 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$629.37</b> &rarr; Option <b>~$1.30 (-80.9%)</b> [ขยับ SL บังทุนที่ $646.89]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.236 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$634.68</b> &rarr; Option <b>~$2.33 (-65.8%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.618 (จุดคัทลอสเมื่อหลุดโซน 0.500)):</b> คัทถ้าหุ้นทะลุ <b>$620.77</b> &rarr; Option <b>~$0.43 (-93.7%)</b></div>
           </div>
           <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (ETF Index)</div>
         </div>
@@ -318,211 +402,127 @@
         <div class="card">
           <div class="card-header">
             <div>
-              <span class="ticker-title">NVDA</span>
-              <span class="badge badge-put">BUY PUT</span>
-              <span class="badge badge-watch">WATCHING</span>
-            </div>
-            <div class="price-box">
-              <div class="spot-price">$136.51</div>
-              <div class="sub-meta">EMA200: $144.42 | RVOL: 0.03x</div>
-            </div>
-          </div>
-
-          <div class="status-banner">⏳ รอราคาย่อ/เด้งมาหา Fibo 0.618 ($153.22 | ห่าง 12.24%)</div>
-
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($145.71)</b> &rarr; จุด 2: <b>Body High ($157.87)</b></div>
-          <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$148.58</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$150.36</strong></div>
-            <div class="fibo-cell "><span>0.500</span><strong>$151.79</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$153.22</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$155.27</strong></div>
-          </div>
-
-          <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
-          <div class="option-box">
-            <div><b>Contract:</b> <code>NVDA 2026-11-23 $140.00 PUT</code> (3 DTE | &Delta; -0.75)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$4.17</span> (Bid $4.13 / Ask $4.22)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$4.24</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
-          </div>
-
-          <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
-          <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$151.79</b> &rarr; Option <b>~$0.02 (-99.4%)</b> [ขยับ SL บังทุนที่ $136.51]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$150.36</b> &rarr; Option <b>~$0.05 (-98.9%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$155.27</b> &rarr; Option <b>~$0.01 (-99.8%)</b></div>
-          </div>
-          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบล่าสุด: 2026-11-17 / ผ่านมาแล้ว 3 วัน)</div>
-        </div>
-        
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <span class="ticker-title">AAPL</span>
-              <span class="badge badge-put">BUY PUT</span>
-              <span class="badge badge-watch">WATCHING</span>
-            </div>
-            <div class="price-box">
-              <div class="spot-price">$347.36</div>
-              <div class="sub-meta">EMA200: $349.33 | RVOL: 0.15x</div>
-            </div>
-          </div>
-
-          <div class="status-banner">⏳ รอราคาย่อ/เด้งมาหา Fibo 0.618 ($351.87 | ห่าง 1.30%)</div>
-
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($346.47)</b> &rarr; จุด 2: <b>Body High ($355.21)</b></div>
-          <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$348.53</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$349.81</strong></div>
-            <div class="fibo-cell "><span>0.500</span><strong>$350.84</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$351.87</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$353.34</strong></div>
-          </div>
-
-          <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
-          <div class="option-box">
-            <div><b>Contract:</b> <code>AAPL 2026-11-23 $347.50 PUT</code> (3 DTE | &Delta; -0.50)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$2.37</span> (Bid $2.35 / Ask $2.39)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$2.41</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
-          </div>
-
-          <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
-          <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$350.84</b> &rarr; Option <b>~$1.03 (-56.4%)</b> [ขยับ SL บังทุนที่ $347.36]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$349.81</b> &rarr; Option <b>~$1.35 (-43.1%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$353.34</b> &rarr; Option <b>~$0.50 (-79.0%)</b></div>
-          </div>
-          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-01-28 / อีก 69 วัน)</div>
-        </div>
-        
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <span class="ticker-title">AMD</span>
-              <span class="badge badge-put">BUY PUT</span>
-              <span class="badge badge-watch">GAP_SKIP</span>
-            </div>
-            <div class="price-box">
-              <div class="spot-price">$435.80</div>
-              <div class="sub-meta">EMA200: $473.82 | RVOL: 1.02x</div>
-            </div>
-          </div>
-
-          <div class="status-banner">⚠️ เปิดกระโดด Gap 3.52% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
-
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($470.56)</b> &rarr; จุด 2: <b>Body High ($554.50)</b></div>
-          <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$490.37</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$502.63</strong></div>
-            <div class="fibo-cell "><span>0.500</span><strong>$512.53</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$522.43</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$536.54</strong></div>
-          </div>
-
-          <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
-          <div class="option-box">
-            <div><b>Contract:</b> <code>AMD 2026-11-23 $440.00 PUT</code> (3 DTE | &Delta; -0.55)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$12.10</span> (Bid $11.83 / Ask $12.36)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$12.38</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
-          </div>
-
-          <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
-          <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$512.53</b> &rarr; Option <b>~$0.03 (-99.8%)</b> [ขยับ SL บังทุนที่ $435.80]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$502.63</b> &rarr; Option <b>~$0.09 (-99.3%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$536.54</b> &rarr; Option <b>~$0.01 (-99.9%)</b></div>
-          </div>
-          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-02-02 / อีก 74 วัน)</div>
-        </div>
-        
-        <div class="card">
-          <div class="card-header">
-            <div>
               <span class="ticker-title">PLTR</span>
-              <span class="badge badge-put">BUY PUT</span>
+              <span class="badge badge-call">BUY CALL</span>
               <span class="badge badge-watch">GAP_SKIP</span>
             </div>
             <div class="price-box">
-              <div class="spot-price">$146.00</div>
-              <div class="sub-meta">EMA200: $152.69 | RVOL: 1.11x</div>
+              <div class="spot-price">$156.55</div>
+              <div class="sub-meta">EMA200: $148.33 | RVOL: 0.52x</div>
             </div>
           </div>
 
-          <div class="status-banner">⚠️ เปิดกระโดด Gap 2.53% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
+          <div class="status-banner">⚠️ เปิดกระโดด Gap 9.55% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
 
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($153.20)</b> &rarr; จุด 2: <b>Body High ($167.07)</b></div>
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($152.51)</b> &rarr; จุด 2: <b>Body Low ($142.50)</b></div>
           <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$156.47</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$158.50</strong></div>
-            <div class="fibo-cell "><span>0.500</span><strong>$160.13</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$161.77</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$164.10</strong></div>
+            <div class="fibo-cell"><span>0.236</span><strong>$150.15</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$148.69</strong></div>
+            <div class="fibo-cell "><span>0.500</span><strong>$147.50</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$146.32</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$144.64</strong></div>
           </div>
 
           <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
           <div class="option-box">
-            <div><b>Contract:</b> <code>PLTR 2026-11-27 $149.00 PUT</code> (7 DTE | &Delta; -0.60)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$5.47</span> (Bid $5.40 / Ask $5.54)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$5.56</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
+            <div><b>Contract:</b> <code>PLTR 2026-11-27 $150.00 CALL</code> (4 DTE | &Delta; +0.68)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$10.28</span> (Bid $10.06 / Ask $10.49)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$10.51</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคาย่อตัวแตะเส้น)</div>
           </div>
 
           <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
           <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$160.13</b> &rarr; Option <b>~$0.68 (-87.5%)</b> [ขยับ SL บังทุนที่ $146.00]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$158.50</b> &rarr; Option <b>~$0.92 (-83.3%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$164.10</b> &rarr; Option <b>~$0.31 (-94.3%)</b></div>
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$147.50</b> &rarr; Option <b>~$5.10 (-50.4%)</b> [ขยับ SL บังทุนที่ $156.55]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$148.69</b> &rarr; Option <b>~$5.67 (-44.9%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$144.64</b> &rarr; Option <b>~$3.89 (-62.1%)</b></div>
           </div>
-          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-02-01 / อีก 73 วัน)</div>
+          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-02-01 / อีก 70 วัน)</div>
         </div>
         
         <div class="card">
           <div class="card-header">
             <div>
               <span class="ticker-title">META</span>
-              <span class="badge badge-put">BUY PUT</span>
+              <span class="badge badge-call">BUY CALL</span>
               <span class="badge badge-watch">GAP_SKIP</span>
             </div>
             <div class="price-box">
-              <div class="spot-price">$573.31</div>
-              <div class="sub-meta">EMA200: $593.61 | RVOL: 0.10x</div>
+              <div class="spot-price">$584.27</div>
+              <div class="sub-meta">EMA200: $574.69 | RVOL: 0.31x</div>
             </div>
           </div>
 
-          <div class="status-banner">⚠️ เปิดกระโดด Gap 2.22% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
+          <div class="status-banner">⚠️ เปิดกระโดด Gap 5.40% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
 
-          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-19)</div>
-          <div class="anchor-info">จุด 1: <b>Wick Low ($595.79)</b> &rarr; จุด 2: <b>Body High ($628.96)</b></div>
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($588.69)</b> &rarr; จุด 2: <b>Body Low ($559.15)</b></div>
           <div class="fibo-grid">
-            <div class="fibo-cell"><span>0.236</span><strong>$603.62</strong></div>
-            <div class="fibo-cell"><span>0.382</span><strong>$608.46</strong></div>
-            <div class="fibo-cell "><span>0.500</span><strong>$612.38</strong></div>
-            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$616.29</strong></div>
-            <div class="fibo-cell"><span>0.786</span><strong>$621.86</strong></div>
+            <div class="fibo-cell"><span>0.236</span><strong>$581.72</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$577.41</strong></div>
+            <div class="fibo-cell "><span>0.500</span><strong>$573.92</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$570.43</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$565.47</strong></div>
           </div>
 
           <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
           <div class="option-box">
-            <div><b>Contract:</b> <code>META 2026-11-23 $575.00 PUT</code> (3 DTE | &Delta; -0.53)</div>
-            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$7.69</span> (Bid $7.59 / Ask $7.80)</div>
-            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$7.82</span> (1 สัญญา)</div>
-            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคารีบาวด์แตะเส้น)</div>
+            <div><b>Contract:</b> <code>META 2026-11-25 $575.00 CALL</code> (2 DTE | &Delta; +0.62)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$19.30</span> (Bid $18.89 / Ask $19.71)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$19.73</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคาย่อตัวแตะเส้น)</div>
           </div>
 
           <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
           <div class="tpsl-list">
-            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$612.38</b> &rarr; Option <b>~$0.12 (-98.5%)</b> [ขยับ SL บังทุนที่ $573.31]</div>
-            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$608.46</b> &rarr; Option <b>~$0.21 (-97.3%)</b></div>
-            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$621.86</b> &rarr; Option <b>~$0.03 (-99.7%)</b></div>
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$573.92</b> &rarr; Option <b>~$13.51 (-30.0%)</b> [ขยับ SL บังทุนที่ $584.27]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$577.41</b> &rarr; Option <b>~$15.33 (-20.6%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$565.47</b> &rarr; Option <b>~$9.68 (-49.8%)</b></div>
           </div>
-          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-01-27 / อีก 68 วัน)</div>
+          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบถัดไป: 2027-01-27 / อีก 65 วัน)</div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="ticker-title">NVDA</span>
+              <span class="badge badge-call">BUY CALL</span>
+              <span class="badge badge-watch">GAP_SKIP</span>
+            </div>
+            <div class="price-box">
+              <div class="spot-price">$164.62</div>
+              <div class="sub-meta">EMA200: $137.74 | RVOL: 0.49x</div>
+            </div>
+          </div>
+
+          <div class="status-banner">⚠️ เปิดกระโดด Gap 32.79% ห่างกรอบ Fibo เมื่อวาน (แนะนำข้าม)</div>
+
+          <div class="section-title">📐 กรอบ Fibonacci วันก่อนหน้า (2026-11-20)</div>
+          <div class="anchor-info">จุด 1: <b>Wick High ($143.73)</b> &rarr; จุด 2: <b>Body Low ($125.02)</b></div>
+          <div class="fibo-grid">
+            <div class="fibo-cell"><span>0.236</span><strong>$139.31</strong></div>
+            <div class="fibo-cell"><span>0.382</span><strong>$136.58</strong></div>
+            <div class="fibo-cell "><span>0.500</span><strong>$134.38</strong></div>
+            <div class="fibo-cell fibo-active"><span>0.618 (Golden)</span><strong>$132.17</strong></div>
+            <div class="fibo-cell"><span>0.786</span><strong>$129.02</strong></div>
+          </div>
+
+          <div class="section-title">🎫 สัญญา Option แนะนำ (Real-Time Black-Scholes ไร้ดีเลย์ 15 นาที)</div>
+          <div class="option-box">
+            <div><b>Contract:</b> <code>NVDA 2026-11-25 $162.50 CALL</code> (2 DTE | &Delta; +0.62)</div>
+            <div><b>ราคาประเมินสด (Real-Time):</b> <span class="highlight-gold">~$4.15</span> (Bid $4.08 / Ask $4.21)</div>
+            <div><b>ตั้ง Limit Buy ไม่เกิน:</b> <span class="highlight-cyan">$4.23</span> (1 สัญญา)</div>
+            <div><b>รูปแบบแท่งเทียน:</b> Waiting for Pullback to Fibo (รอราคาย่อตัวแตะเส้น)</div>
+          </div>
+
+          <div class="section-title">🎯 แผนทำกำไร &amp; ตัดขาดทุน (TP / SL อ้างอิงหุ้นแม่ Real-Time)</div>
+          <div class="tpsl-list">
+            <div class="tp1-row">✅ <b>TP 1 (Fibo 0.500 (ล็อกกำไร/ขยับ SL บังทุน)):</b> หุ้นแตะ <b>$134.38</b> &rarr; Option <b>~$0.01 (-99.8%)</b> [ขยับ SL บังทุนที่ $164.62]</div>
+            <div class="tp2-row">🚀 <b>TP 2 (Fibo 0.382 (เป้าถือรันกำไรคำใหญ่)):</b> หุ้นแตะ <b>$136.58</b> &rarr; Option <b>~$0.01 (-99.8%)</b></div>
+            <div class="sl-row">🛑 <b>SL (Fibo 0.786 (จุดคัทลอสเมื่อหลุดโซน 0.618)):</b> คัทถ้าหุ้นทะลุ <b>$129.02</b> &rarr; Option <b>~$0.01 (-99.8%)</b></div>
+          </div>
+          <div class="earn-footer">📅 สถานะงบการเงิน: SAFE (งบล่าสุด: 2026-11-17 / ผ่านมาแล้ว 6 วัน)</div>
         </div>
         
     </div>
